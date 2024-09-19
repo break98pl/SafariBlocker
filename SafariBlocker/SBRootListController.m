@@ -2,6 +2,19 @@
 #include <objc/runtime.h>
 #import <spawn.h>
 
+@interface PSTextFieldSpecifier : NSObject {
+
+	SEL bestGuess;
+	NSString* _placeholder;
+}
++(id)preferenceSpecifierNamed:(id)arg1 target:(id)arg2 set:(SEL)arg3 get:(SEL)arg4 detail:(Class)arg5 cell:(long long)arg6 edit:(Class)arg7 ;
++(id)specifierWithSpecifier:(id)arg1 ;
+-(BOOL)isEqualToSpecifier:(id)arg1 ;
+-(void)setPlaceholder:(id)arg1 ;
+-(id)placeholder;
+-(void)setProperty:(id)arg1 forKey:(id)arg2 ;
+@end
+
 @interface LSApplicationProxy
 	+(id)applicationProxyForIdentifier:(NSString *)bundleId;
 	-(NSURL *)containerURL;
@@ -145,28 +158,6 @@ NSString *prefFilePath;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-
-	// if the cell is an editable cell, it's either the apple id or password cell
-	if ([cell isKindOfClass:objc_getClass("PSEditableTableCell")])
-	{
-		PSEditableTableCell *editableCell = (PSEditableTableCell *)cell;
-		if ([editableCell textField])
-		{
-			UIToolbar *keyboardDoneButtonView = [[UIToolbar alloc] init];
-			[keyboardDoneButtonView sizeToFit];
-			UIBarButtonItem *flexBarButton = [[UIBarButtonItem alloc]
-			    initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-			    target:self action:nil];
-
-			UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc]
-			    initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-			    target:self action:@selector(doneClicked:)];
-
-			keyboardDoneButtonView.items = [NSArray arrayWithObjects:flexBarButton,doneBarButton,nil];
-			//[keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
-	    ((UITextField *)[editableCell textField]).inputAccessoryView = keyboardDoneButtonView;
-		}
-	}
 
 	return cell;
 }

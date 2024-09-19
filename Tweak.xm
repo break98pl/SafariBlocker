@@ -1,3 +1,4 @@
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "Bagel/Bagel.h"
 
@@ -90,7 +91,7 @@ static NSString* removeJunk(NSString* url)
 
 %hook TabController
 
-  - (void)insertTabDocument:(id)tabDocument afterTabDocument:(id)existingTabDoc inBackground:(BOOL)inBackground animated:(BOOL)animated
+  - (void)insertTab:(id)tabDocument afterTab:(id)afterTab inBackground:(BOOL)inBackground animated:(BOOL)animated
   {
     if(skipNextTabOpen)
     {
